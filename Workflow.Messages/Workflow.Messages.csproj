@@ -44,9 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\P2pBulkReceived.cs" />
     <Compile Include="Events\P2pBulkWorkflowStarted.cs" />
+    <Compile Include="Events\P2pReceived.cs" />
     <Compile Include="Events\P2pWorkflowStarted.cs" />
+    <Compile Include="Policies\P2pWorkflowWarningPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Poller.Messages\Poller.Messages.csproj">
+      <Project>{cd1cb341-3d2c-4ed1-83a0-48e4592af172}</Project>
+      <Name>Poller.Messages</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

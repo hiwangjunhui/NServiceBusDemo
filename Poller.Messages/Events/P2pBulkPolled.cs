@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poller.Messages
+namespace Poller.Messages.Events
 {
-    public class Class1
+    public class P2pBulkPolled
     {
     }
 }

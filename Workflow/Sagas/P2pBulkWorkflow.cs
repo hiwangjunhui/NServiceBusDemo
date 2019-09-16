@@ -9,7 +9,7 @@ using Workflow.Messages.Events;
 
 namespace Workflow.Sagas
 {
-    class P2pBulkRefreshWorkflow : Saga<P2pBulkRefreshWorkflowState>, IAmStartedByMessages<DoP2pBulkRefresh>
+    class P2pBulkWorkflow : Saga<P2pBulkRefreshWorkflowState>, IAmStartedByMessages<DoP2pBulkRefresh>
     {
         public Task Handle(DoP2pBulkRefresh message, IMessageHandlerContext context)
         {

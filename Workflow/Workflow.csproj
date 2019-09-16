@@ -56,15 +56,23 @@
     <Compile Include="Configuration\EndpointConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sagas\P2pBulkRefreshWorkflow.cs" />
+    <Compile Include="Sagas\P2pBulkWorkflow.cs" />
     <Compile Include="Sagas\P2pBulkRefreshWorkflowState.cs" />
-    <Compile Include="Sagas\P2pRefreshWorkflow.cs" />
+    <Compile Include="Sagas\P2pWorkflow.cs" />
     <Compile Include="Sagas\P2pRefreshWorkflowState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cacher.Messages\Cacher.Messages.csproj">
+      <Project>{75E0376D-2C28-40DB-A737-EA6C105CFA60}</Project>
+      <Name>Cacher.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Poller.Messages\Poller.Messages.csproj">
+      <Project>{cd1cb341-3d2c-4ed1-83a0-48e4592af172}</Project>
+      <Name>Poller.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scheduler.Messages\Scheduler.Messages.csproj">
       <Project>{82a0cc52-b5fd-4b19-b8ee-c753fca5c9e8}</Project>
       <Name>Scheduler.Messages</Name>

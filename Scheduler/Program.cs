@@ -18,8 +18,8 @@ namespace Scheduler
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration);
 
-            await endpointInstance.Send(new DoP2pBulkRefresh { WorkflowId = Guid.NewGuid() });
-            await endpointInstance.Send(new DoP2pRefresh { WorkflowId = Guid.NewGuid() });
+            var scheduler = new Scheduler();
+            await scheduler.ScheduleEvery(endpointInstance);
 
             Console.ReadLine();
             await endpointInstance.Stop();

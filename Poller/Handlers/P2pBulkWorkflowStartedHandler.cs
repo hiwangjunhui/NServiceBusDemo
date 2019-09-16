@@ -12,7 +12,7 @@ namespace Poller.Handlers
     {
         public Task Handle(P2pBulkWorkflowStarted message, IMessageHandlerContext context)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }
