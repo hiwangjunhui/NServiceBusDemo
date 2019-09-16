@@ -13,7 +13,6 @@ namespace Workflow.Sagas
 {
     class P2pWorkflow : Saga<P2pRefreshWorkflowState>,
         IAmStartedByMessages<DoP2pRefresh>,
-        IAmStartedByMessages<P2pPolled>,
         IHandleMessages<P2pPolled>,
         IHandleMessages<P2pCached>,
         IHandleTimeouts<P2pWorkflowWarningPolicy>
@@ -28,7 +27,7 @@ namespace Workflow.Sagas
         public async Task Handle(DoP2pRefresh message, IMessageHandlerContext context)
         {
             var warningPolicy = new P2pWorkflowWarningPolicy { WorkflowId = message.WorkflowId };
-            await RequestTimeout(context, TimeSpan.FromMinutes(10), warningPolicy);
+            await RequestTimeout(context, TimeSpan.FromMinutes(Properties.Settings.Default.SagaRequestTimeoutMinutes), warningPolicy);
             var events = new P2pWorkflowStarted { WorkflowId = message.WorkflowId };
             await context.Publish(events).ConfigureAwait(false);
 
