@@ -34,7 +34,7 @@ namespace Poller.Handlers
             {
                 try
                 {
-                    var list = await db.GetListAsync<Customer>("select * from T_Customer where Status=@Status", new { Status = 0 });
+                    var list = await db.GetListAsync<Customer>("select * from T_Customer where Status=@Status Order by Id OFFSET 0 Rows Fetch Next 10 Rows ONLY", new { Status = 0 });
                     await context.Publish(new P2pPolled { WorkflowId = message.WorkflowId, Customers = list }).ConfigureAwait(false);
                 }
                 catch (Exception ex)
