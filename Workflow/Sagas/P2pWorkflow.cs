@@ -27,7 +27,6 @@ namespace Workflow.Sagas
         public async Task Handle(DoP2pRefresh message, IMessageHandlerContext context)
         {
             var warningPolicy = new P2pWorkflowWarningPolicy { WorkflowId = message.WorkflowId };
-
             var requestTimeoutMinutes = Properties.Settings.Default.SagaRequestTimeoutMinutes;
             await RequestTimeout(context, TimeSpan.FromMinutes(requestTimeoutMinutes), warningPolicy);
             var events = new P2pWorkflowStarted { WorkflowId = message.WorkflowId };

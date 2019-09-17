@@ -22,8 +22,9 @@ namespace Workflow.Tests.HappyPath
         public async Task HandleDoP2pRefreshTest()
         {
             var msg = new DoP2pRefresh() { WorkflowId = Guid.NewGuid() };
+            _handler.Data = new P2pRefreshWorkflowState { WorkflowId = msg.WorkflowId };
             await _handler.Handle(msg, _context).ConfigureAwait(false);
-
+            
             var publishedMessages = _context.PublishedMessages;
             _handler.ShouldSatisfyAllConditions(() =>
             {
