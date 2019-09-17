@@ -14,12 +14,16 @@ namespace Cacher.Handlers
     public class P2pReceivedHandler : IHandleMessages<P2pReceived>
     {
         private readonly string _connecitonString;
-        private readonly ILog _logger;
+        private readonly ILog _logger = LogManager.GetLogger<P2pReceivedHandler>();
 
         public P2pReceivedHandler()
         {
-            _connecitonString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString;
-            _logger = LogManager.GetLogger<P2pReceivedHandler>();
+            _connecitonString = ConfigurationManager.ConnectionStrings["DbConnectionString"]?.ConnectionString;
+        }
+
+        public P2pReceivedHandler(string connectionString)
+        {
+            _connecitonString = connectionString;
         }
 
         public async Task Handle(P2pReceived message, IMessageHandlerContext context)
@@ -48,7 +52,7 @@ namespace Cacher.Handlers
             _logger.Info($"{message.WorkflowId} cached.");
         }
 
-        private async Task PublishP2pCached(IMessageHandlerContext context, List<Guid> insertedItems, Guid workflowId)
+        public async Task PublishP2pCached(IMessageHandlerContext context, List<Guid> insertedItems, Guid workflowId)
         {
             var message = new P2pCached { WorkflowId = workflowId, InsertedItems = insertedItems };
             await context.Publish(message);

@@ -13,19 +13,19 @@ using NServiceBus.Logging;
 
 namespace Poller.Handlers
 {
-    class P2pWorkflowStartedHandler : IHandleMessages<P2pWorkflowStarted>
+    public class P2pWorkflowStartedHandler : IHandleMessages<P2pWorkflowStarted>
     {
-        private static readonly string DbConnectionString;
-        private readonly ILog _logger;
-
-        static P2pWorkflowStartedHandler()
-        {
-            DbConnectionString = ConfigurationManager.ConnectionStrings[nameof(DbConnectionString)].ConnectionString;
-        }
+        private readonly string DbConnectionString;
+        private readonly ILog _logger = LogManager.GetLogger<P2pWorkflowStartedHandler>();
 
         public P2pWorkflowStartedHandler()
         {
-            _logger = LogManager.GetLogger<P2pWorkflowStartedHandler>();
+            DbConnectionString = ConfigurationManager.ConnectionStrings[nameof(DbConnectionString)]?.ConnectionString;
+        }
+
+        public P2pWorkflowStartedHandler(string connectionString)
+        {
+            DbConnectionString = connectionString;
         }
 
         public async Task Handle(P2pWorkflowStarted message, IMessageHandlerContext context)

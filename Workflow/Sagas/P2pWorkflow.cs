@@ -11,7 +11,7 @@ using Workflow.Messages.Policies;
 
 namespace Workflow.Sagas
 {
-    class P2pWorkflow : Saga<P2pRefreshWorkflowState>,
+    public class P2pWorkflow : Saga<P2pRefreshWorkflowState>,
         IAmStartedByMessages<DoP2pRefresh>,
         IHandleMessages<P2pPolled>,
         IHandleMessages<P2pCached>,
@@ -27,7 +27,9 @@ namespace Workflow.Sagas
         public async Task Handle(DoP2pRefresh message, IMessageHandlerContext context)
         {
             var warningPolicy = new P2pWorkflowWarningPolicy { WorkflowId = message.WorkflowId };
-            await RequestTimeout(context, TimeSpan.FromMinutes(Properties.Settings.Default.SagaRequestTimeoutMinutes), warningPolicy);
+
+            var requestTimeoutMinutes = Properties.Settings.Default.SagaRequestTimeoutMinutes;
+            await RequestTimeout(context, TimeSpan.FromMinutes(requestTimeoutMinutes), warningPolicy);
             var events = new P2pWorkflowStarted { WorkflowId = message.WorkflowId };
             await context.Publish(events).ConfigureAwait(false);
 
